@@ -3,3 +3,9 @@
   [[https://godoc.org/github.com/kumakichi/merge-images][https://godoc.org/github.com/kumakichi/merge-images?status.png]]
 
   A Go lib to merge image files(jpeg, png, gif, bmp) in horizontally or vertically.
+
+  The merged image file will use the maxium width and height of the original files.
+
+  So, [[./images/100.png]] + [[./images/frontpage.png]] = [[./images/h.png]] (horizontally)
+
+  and [[./images/100.png]] + [[./images/frontpage.png]] = [[./images/v.png]] (vertically)
