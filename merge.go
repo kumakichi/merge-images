@@ -3,6 +3,7 @@ package merge_images
 import (
 	"errors"
 	"image"
+	"image/color"
 	"image/draw"
 	"image/gif"
 	"image/jpeg"
@@ -10,6 +11,10 @@ import (
 	"os"
 
 	"golang.org/x/image/bmp"
+)
+
+var (
+	backgroundColor color.Color
 )
 
 // MergeImage merges image files given by sourceImages argument one by one.
@@ -34,6 +39,14 @@ func MergeImage(orientation Orientation, mergedImage string, sourceImages ...str
 		totalWidth := sum(widthSlice...)
 		dst = image.NewNRGBA(image.Rect(0, 0, totalWidth, maxHeight))
 
+		if isBackgroundColorSetted() {
+			for x := 0; x < totalWidth; x++ {
+				for y := 0; y < maxHeight; y++ {
+					dst.Set(x, y, backgroundColor)
+				}
+			}
+		}
+
 		for i, v := range sourceImages {
 			src, err := getImageFromPath(v)
 			if err != nil {
@@ -53,6 +66,14 @@ func MergeImage(orientation Orientation, mergedImage string, sourceImages ...str
 		maxWidth := max(widthSlice...)
 		totalHeight := sum(heightSlice...)
 		dst = image.NewNRGBA(image.Rect(0, 0, maxWidth, totalHeight))
+
+		if isBackgroundColorSetted() {
+			for x := 0; x < maxWidth; x++ {
+				for y := 0; y < totalHeight; y++ {
+					dst.Set(x, y, backgroundColor)
+				}
+			}
+		}
 
 		for i, v := range sourceImages {
 			src, err := getImageFromPath(v)
@@ -83,6 +104,20 @@ func MergeImage(orientation Orientation, mergedImage string, sourceImages ...str
 
 	err = outfile.Close()
 	return
+}
+
+// Set background color
+func SetBackgroundColor(c color.Color) {
+	backgroundColor = c
+}
+
+// Unset background color
+func UnsetBackgroundColor(c color.Color) {
+	backgroundColor = nil
+}
+
+func isBackgroundColorSetted() bool {
+	return backgroundColor != nil
 }
 
 func getImageFromPath(imgPath string) (img image.Image, err error) {

@@ -6,6 +6,18 @@
 
   The merged image file will use the maxium width and height of the original files.
 
+  You should set background color(eg. color.White) by calling:
+#+BEGIN_SRC go
+  merge_images.SetBackgroundColor(color.White)
+#+END_SRC
+  Or, you will get merged image like below:
+
   So, [[./images/100.png]] + [[./images/frontpage.png]] = [[./images/h.png]] (horizontally)
 
   and [[./images/100.png]] + [[./images/frontpage.png]] = [[./images/v.png]] (vertically)
+
+  After setting background color(here, it is color.White), merged file will look like below:
+
+  [[./images/100.png]] + [[./images/frontpage.png]] = [[./images/bh.png]] (horizontally)
+
+  [[./images/100.png]] + [[./images/frontpage.png]] = [[./images/bv.png]] (vertically)
