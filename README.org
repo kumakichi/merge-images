@@ -1,0 +1,5 @@
+* About
+
+  [[https://godoc.org/github.com/kumakichi/merge-images][https://godoc.org/github.com/kumakichi/merge-images?status.png]]
+
+  A Go lib to merge image files(jpeg, png, gif, bmp) in horizontally or vertically.
