@@ -19,12 +19,12 @@ var (
 
 // MergeImage merges image files given by sourceImages argument one by one.
 // The width/height of the merged image is the max width/height of image files in sourceImages.
-func MergeImage(orientation Orientation, mergedImage string, sourceImages ...string) (err error) {
-	length := len(sourceImages)
+func MergeImage(orientation Orientation, mergedImagePath string, sourceImagePaths ...string) (err error) {
+	length := len(sourceImagePaths)
 	widthSlice := make([]int, length)
 	heightSlice := make([]int, length)
 
-	for i, v := range sourceImages {
+	for i, v := range sourceImagePaths {
 		widthSlice[i], heightSlice[i], err = getImageDimension(v)
 		if err != nil {
 			return
@@ -47,7 +47,7 @@ func MergeImage(orientation Orientation, mergedImage string, sourceImages ...str
 			}
 		}
 
-		for i, v := range sourceImages {
+		for i, v := range sourceImagePaths {
 			src, err := getImageFromPath(v)
 			if err != nil {
 				return err
@@ -75,7 +75,7 @@ func MergeImage(orientation Orientation, mergedImage string, sourceImages ...str
 			}
 		}
 
-		for i, v := range sourceImages {
+		for i, v := range sourceImagePaths {
 			src, err := getImageFromPath(v)
 			if err != nil {
 				return err
@@ -92,7 +92,7 @@ func MergeImage(orientation Orientation, mergedImage string, sourceImages ...str
 		}
 	}
 
-	outfile, err := os.Create(mergedImage)
+	outfile, err := os.Create(mergedImagePath)
 	if err != nil {
 		return err
 	}
